@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <div id="header" class="uh bc-text-head ub bc-head ">
+                <div class="nav-btn" id="nav-left" onclick="closeWin()">
+                    <div class="ub-img  icon-back umw2 umh3 "></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">在线发帖</h1> 
+                <div class="nav-btn nav-bt">
+                    <div class="ub-img  umw2 umh4"></div>
+                </div>
+            </div>  
+            <div id="content" class="ub uinn ub-ver">
+                <div class="ub" style="margin-top: .5em;">
+                    <div class="ub ub-ac sc-text-active" style="margin-right: 0.5em">主题:</div>
+                    <div class="select uba  uc-a bc-text" style="border:2px solid #F1CA7E">
+                        <div class="text">请选择</div>
+                        <div class="icon"></div>
+                        <select selectedindex="0">
+                            <option value=0>学术交流</option>
+                            <option value=1>校园淘宝</option>
+                            <option value=2>招聘兼职</option>
+                            <option value=3>摄影</option>
+                            <option value=4>社团</option>
+                            <option value=5>娱乐杂谈</option>
+                            <option value=6>非诚勿扰</option>
+                            <option value=7>校园吐糟</option>
+                        </select>
+                    </div>    
+                </div>
+                <div class="umar-t" style="border-bottom:2px solid #E3E3E3"></div>
+                <div class="ub" style="">
+                    <div class="ub ub-ac ub-pc sc-text-active">标题: </div> 
+                    <div class="umar-t ub umar-l" style="border: 2px solid #F1CA7E;width:60%;">
+                        <form class="uinput ub ub-f1" >
+                             <input placeholder="标题" type="text"  autocomplete="off" id="forum_title">
+                        </form>
+                    </div>
+                </div>
+                <div class="umar-t" style="border-bottom:2px solid #E3E3E3"></div>
+                <div class="ub umar-t">
+                 <div class="ub ub-ac ub-pc sc-text-active">内容: </div>    
+                <div class="ub c-wh  uh-ect ub-f1 umar-l" style="border: 2px solid #F1CA7E;">
+                    <div class=" uinput ub-f1">
+                         <textarea placeholder="内容" type="text" rows="8" id="forum_content"></textarea>
+                    </div>
+                </div>
+                </div>
+                <div class="umar-t" style="border-bottom:2px solid #E3E3E3"></div>
+                <div class="ub umar-t">
+                    <div class="ub ub-ac ub-pc sc-text-active">图片: </div>
+                    <div class="ub ub-ac umar-l" style="height:10em;width:8em;">
+                        <img id="addimg" style="height: 2em;width:2.2em;margin-left:0.5em" src="css/res/phone.png" />  
+                        <img id="addphone" style="height: 2em;width:2.2em;margin-left:1em" src="css/res/imageadd.png"/>  
+                    </div>
+                    <div id="upimage" class="ub umar-l ub-f1">
+                    </div>
+                </div>
+                <div style="border-bottom:2px solid #E3E3E3;margin-top: 0.1em"></div>
+                <div class="ub ub-pe" style="margin-top:0.5em">
+                    <div class="ub ub-ac bc-head ub-pc uc-a umar-r umar-l bc-text-head" style="height:3em;width:5em;" onclick="inputForum()">
+                                                                      提交
+                    </div>  
+                </div>
+
+            </div> 
+        </div>
+    </body>
+    <script src="js/appcan.js"></script>
+    <script src="js/appcan.control.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/forum.js"></script>
+    </body>
+    <script>
+        var imagePath;
+        var forum_type="学术交流";
+        var inputForumUrl="http://121.42.161.29/mobile/app/forum/get.php?type=3"; 
+        var uploadHttp="http://121.42.161.29/mobile/app/up/uploadforum.php";
+        var isUpImg="false";
+        window.uexOnload = function(type) {
+            if (!type) {
+                   uexCamera.cbOpenInternal = function(opCode, dataType, data){
+                       $$("upimage").innerHTML = "";
+                       imagePath=data;
+                       $$("upimage").innerHTML ='<img onclick="picdetail(&quot;'+data+'&quot;)" style="height:10em;width:8em;margin-left:0.5em;" src="'+data+'" />'   
+                       isUpImg="true"; 
+                   }
+                   uexImage.onPickerClosed=function(data){
+                      $$("upimage").innerHTML = "";
+                      var picinfo = JSON.parse(data);
+                      imagePath=picinfo.data[0];
+                      $$("upimage").innerHTML ='<img onclick="picdetail(&quot;'+picinfo.data[0]+'&quot;)" style="height:10em;width:8em;margin-left:0.5em;" src="'+picinfo.data[0]+'" />'   
+                      isUpImg="true";
+                   }
+                   uexUploaderMgr.cbCreateUploader =function(opCode,dataType,data){
+                        if(data == 0){
+                            toast("图片上传中，请稍后...")
+                            json='{"SESSIONID":'+appcan.locStorage.getVal("SESSIONID")+'}';
+                            uexUploaderMgr.setHeaders(0,json)
+                            uexUploaderMgr.uploadFile(0,imagePath,"file",1,400);
+                        }else{
+                            alert("图片上传失败！");
+                        }
+                    }
+                   uexUploaderMgr.onStatus = function(opCode,fileSize,percent,serverPath,status){
+                     switch (status) {
+                            case 0:break;
+                            case 1:
+                                uexUploaderMgr.closeUploader(opCode);    
+                                setTimeout(subInfo(),1000); 
+                                break;
+                            case 2:
+                                alert("上传失败");
+                                uexUploaderMgr.closeUploader(opCode);
+                                break;
+                      }  
+                   } 
+            } 
+        }   
+        appcan.select(".select",function(ele,value){
+            switch(value){
+                 case '0':forum_type="学术交流";
+                        break;
+                 case '1':forum_type="校园淘宝";
+                        break;
+                 case '2':forum_type="兼职招聘";
+                        break;
+                 case '3':forum_type="摄影";
+                        break;
+                 case '4':forum_type="社团";
+                        break;                      
+                 case '5':forum_type="娱乐杂谈";
+                        break;       
+                 case '6':forum_type="非诚勿扰";
+                        break;
+                 case '7':forum_type="吐糟";
+                        break;              
+            } 
+        });
+        function inputForum(){
+            if(getStorage("isLogin")){
+                if($$('forum_title').value==""){
+                    alert("标题为空，请输入帖子标题");
+                    return;
+                }else{  
+                     if($$('forum_content').value==""){
+                        alert("内容为空，请输入帖子内容");
+                        return;  
+                     }
+                }      
+                if(isUpImg=="true"){ 
+                    uexUploaderMgr.createUploader(0,uploadHttp);
+                }else{   
+                    subInfo();   
+                }
+            }else{
+                alert("请您先登陆后再发帖");
+                setTimeout(uexWindow.open("login", '0', "login.html", 2, '', '',0,280),1000);             
+            } 
+        }
+        appcan.button("#addimg","btn-act",function(){
+            var data = {
+                        min:1,
+                        max:1,
+                        quality:0.8,
+                        detailedInfo:true
+                        }
+            var json = JSON.stringify(data);
+            uexImage.openPicker(json);  
+        })
+        appcan.button("#addphone","btn-act",function(){
+            uexCamera.openInternal(0,50);    
+        })
+        function subInfo(){
+            toast("信息提交中，请稍后..."); 
+            setTimeout(function(){
+                appcan.request.get(
+                    inputForumUrl,
+                    {
+                      SESSIONID:appcan.locStorage.getVal("SESSIONID"),
+                      forum_author:getStorage("nick_name"),
+                      forum_headpicaddress:getStorage("user_headerimg"),
+                      forum_title:$$('forum_title').value,
+                      forum_content:$$('forum_content').value,
+                      forum_time:comment_time,
+                      forum_type:forum_type  
+                    },
+                    function(data){
+                        var da = eval('('+data+')');
+                        if(da.status=="success"){
+                            appcan.window.openToast("提交成功,跳转中...","900","5","1");
+                            setTimeout(function(){
+                                setStorage("order",forum_type);
+                                uexWindow.open("forum_content", '0', "forum_content.html", 2, '', '',0,280);              
+                                uexWindow.evaluatePopoverScript("forum_content","forum_content1","getdata('0');");
+                                uexWindow.evaluateMultiPopoverScript("forum","content","mostnew","getdata('0');");
+                                appcan.window.close(-1);
+                            },500)
+                        }else{
+                            alert("帖子发表失败");
+                        }
+                    }
+               )
+            },500); 
+        }
+        function closeWin(){
+            appcan.window.close(-1);
+        }
+ </script>
+</html>

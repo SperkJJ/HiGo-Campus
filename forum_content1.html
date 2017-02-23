@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/rotate.css">
+    </head>
+    <body class="um-vp sc-bg-active" ontouchstart>
+         <div class="ub ub-ac ub-ver ub-fv ub-pc" id="loadbg" ontouchstart = "zy_touch()"></div>
+         <div id="listview" class="ub-ver ub umar-l umar-r umar-t">    
+               
+         </div>
+    </body>
+    <script src="js/appcan.js"></script>
+    <script src="js/appcan.control.js"></script>
+    <script src="js/appcan.tab.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/forum.js"></script>
+    </body>
+    <script>
+    var newurl = "order="+encodeURIComponent(getStorage("order"))+"&page=1"; //order代表帖子类型
+    var preurl = "order="+encodeURIComponent(getStorage("order"))+"&page=";  
+    var priurl = "http://121.42.161.29/mobile/app/forum/get.php?type=4&forum_author="+encodeURIComponent(getStorage("nick_name")); 
+    var url;
+    var count;
+    var count1;
+    var page=1;
+    var str=''; 
+    var temp=''; 
+    window.uexOnload = function(type) {
+        if (!type) {
+            loading("列表加载中...");
+            if(getStorage("order")=="privage"){
+                getPrivageforum(); 
+            }else{
+                setBounce();
+                getdata("1"); 
+            }
+        } 
+    }
+    </script>
+</html>

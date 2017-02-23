@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/rotate.css"/>
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head ub-ac">
+                 <div class="nav-btn" id="nav-left">
+                    <div class="ub-img  icon-back umw2 umh3 "></div>
+                </div>
+                <h1 id="title" class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">登录</h1>
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 ub ub-pc">
+           <div class="ub ub-ac ub-ver ub-fv ub-pc" id="loadbg" ontouchstart = "zy_touch()"></div>
+            </div>
+            <!--content结束-->
+
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/forum.js"></script>
+    </body>
+    <script>
+        var xiaoli1="http://sperk.cn/mobile/app/up/image/xiaoli1.jpg";
+        var xiaoli2="http://sperk.cn/mobile/app/up/image/xiaoli2.jpg";
+        appcan.ready(function() {
+            $$("title").innerHTML=getStorage("serviceType");
+            if(getStorage("serviceType")=="校历"){
+                $$("content").innerHTML = '<div id="pic" class="ub-f1  ub ub-ver uinn">'+
+                                               '<img onclick="picdetail(&quot;'+xiaoli1+'&quot;);" src="http://sperk.cn/mobile/app/up/image/xiaoli1.jpg" class="ub ub-img1" style="height:20em;width:100%"/>'+
+                                               '<img oncliCk="picdetail(&quot;'+xiaoli2+'&quot;);" src="http://sperk.cn/mobile/app/up/image/xiaoli2.jpg" class="ub ub-img1" style="height:20em;width:100%"/>'+
+                                          '</div>'     
+            }else{
+                loading("");
+                var titHeight = $('#header').offset().height;
+                appcan.frame.open("content",getStorage("serviceUrl"), 0, titHeight);
+                setTimeout(function(){
+                    $$('loadbg').className= 'uhide'; 
+                },5000);
+            }
+        });
+        appcan.button(".nav-btn", "btn-act", function() {
+            appcan.window.close(-1);
+        })
+    </script>
+</html>

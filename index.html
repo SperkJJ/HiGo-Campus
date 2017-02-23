@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/new_file.css">
+         <style>
+            .change_w{
+                min-width: 2em;
+            }
+            .change_h{
+                min-height: 2em;
+            }
+            .menus_color{
+                color:#4D4848;
+            }
+        </style>
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head ub-ver">
+                <h1 id="title" class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">校园资讯</h1>
+                <div class="ub ub-ac bc-bg">
+                    <div id="otable" class="ub ub-ac  ub-f1" style="height:3em;overflow-x:auto;border-bottom:3px solid #E3E3E3">
+                        <div onclick="openFrame(0)" ontouchstart="zy_touch(\'btn-act\')" id="id_rcommend" class="ub ub-ac ub-pc ofont f-s12" style="padding: 0 1.5em 0 .5em">推荐</div>
+                        <div onclick="openFrame(1)" ontouchstart="zy_touch(\'btn-act\')" id="id_inform" class="ub ub-ac ub-pc menus_color" style="padding-right: 1.5em;">学校通知</div>
+                        <!--div onclick="getlist('3',0)" name="ota" class="ub ub-ac ub-pc" style="padding-right: 1em;">专题width:3em;</div-->
+                        <div onclick="openFrame(2)" ontouchstart="zy_touch(\'btn-act\')" id="id_activity" class="ub ub-ac ub-pc menus_color" style="padding-right: 1.5em;">活动</div>
+                        <div onclick="openFrame(3)" ontouchstart="zy_touch(\'btn-act\')" id="id_learn" class="ub ub-ac ub-pc menus_color" style="padding-right: 1.5em;">学习天地</div>
+                        <!--div onclick="openFrame(4)" name="ota" class="ub ub-ac ub-pc" style="padding-right: 1.5em;">问政</div-->
+                        <div onclick="openFrame(4)" ontouchstart="zy_touch(\'btn-act\')" id="id_race" class="ub ub-ac ub-pc menus_color" style="padding-right: 1.5em;">竞赛</div>
+                        <div onclick="openFrame(5)" ontouchstart="zy_touch(\'btn-act\')" id="id_mircroom" class="ub ub-ac ub-pc menus_color" style="padding-right: 1.5em;">微课堂</div>
+                       
+                        <div onclick="openFrame(6)" ontouchstart="zy_touch(\'btn-act\')" id="id_job" class="ub ub-ac ub-pc menus_color" style="padding-right: 1.5em;">就业</div>
+                        <!--<div onclick="openFrame(6)" id="id_zj" class="ub ub-ac ub-pc" style="padding-right: 1.5em;">政经</div>-->
+                        <div onclick="openFrame(7)" ontouchstart="zy_touch(\'btn-act\')" id="id_mirclife" class="ub ub-ac ub-pc menus_color" style="padding-right: 0.5em;">微生活</div>
+                        <!--div onclick="getlist('7',0)" name="ota" class="ub ub-ac ub-pc" style="width:4em;">微社区</div-->
+                    </div>
+                </div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+            </div>
+            <!--content结束-->
+            <div id="footer " class="uf ub" style="height:3.5em;border-top:3px solid #EEEEEE">
+                <div class="ub ub-f1 ub-ver" style="margin-top:0.2em;width:25%;"> 
+                    <div class="ub-f1 ub ub-ac ub-pc">
+                        <div class=" ub-img message-act ub" style="height:2em;width:2em;"></div>
+                    </div>
+                    <div class="sc-text-active ulev-1 ub ub-pc umh2 ub-ac">资讯</div>
+                </div> 
+                <div class="ub ub-f1 ub-ver" style="margin-top:0.2em;width:25%;"> 
+                    <div class="ub-f1 ub ub-ac ub-pc" onclick='openNewWin("forum","forum.html","0")'>
+                        <div class=" ub-img forum ub" style="height:2em;width:2em;"></div>
+                    </div>
+                    <div class=" ulev-1 ub ub-pc umh2 ub-ac">论坛</div>
+                </div>
+                <div class="ub ub-f1 ub-ver" style="margin-top:0.2em; width:25%;"> 
+                    <div class="ub-f1 ub ub-ac ub-pc" onclick='openNewWin("food","food.html","0")'>
+                        <div class=" ub-img food ub" style="height:1.8em;width:1.8em;"></div>
+                    </div>
+                    <div class=" ulev-1 ub ub-pc umh2 ub-ac">吃喝玩乐</div>
+                </div>
+                <div class="ub ub-f1 ub-ver" style="margin-top:0.2em;width:25%;"> 
+                    <div class="ub-f1 ub ub-ac ub-pc" onclick='openNewWin("service","service.html","0")'>
+                        <div class=" ub-img service ub" style="height:1.8em;width:1.8em;"></div>
+                    </div>
+                    <div class="ulev-1 ub ub-pc umh2 ub-ac">校园服务</div>
+                </div>
+                <div class="ub ub-f1 ub-ver" style="margin-top:0.2em;width:25%;"> 
+                    <div class="ub-f1 ub ub-ac ub-pc" onclick='openNewWin("my","my.html","0")'>
+                        <div class=" ub-img my ub" style="height:1.8em;width:1.8em;"></div>
+                    </div>
+                    <div class=" ulev-1 ub ub-pc umh2 ub-ac">个人中心</div>
+                </div>       
+            </div>
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/appcan.tab.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+    <script>
+        var oframe = "";
+        var f = parseInt(parseInt(window.screen.width)) / parseInt($('body').width(), 10);
+        var heightValue = 0;
+        var isOpen=new Array();
+        isOpen[0]="id_rcommend";//默认初始页尾热文
+        window.uexOnload = function(type) {
+            if (!type) {
+            setStorage('idPage','id_rcommend');     //左侧默认为第一
+            em = parseInt($('#header').css('font-size'));
+            //计算浮动窗口距离顶部的高度
+            var titHeight = $('#header').offset().height;
+            var otable = $('#otable').offset().height;
+            var numTTot = parseInt(titHeight);
+            heightValue = numTTot;
+            setStorage("h",heightValue);//保存header与栏目的高度和
+            setStorage("w",$('#header').offset().width);//保存header的宽度
+            var popcontent = '{"content":[{"inPageName":"LV0","inUrl":"recommend.html","inData":""},'
+                                        +'{"inPageName":"LV1","inUrl":"inform.html","inData":""},'
+                                        +'{"inPageName":"LV2","inUrl":"activity.html","inData":""},'
+                                        +'{"inPageName":"LV3","inUrl":"learn.html","inData":""},'
+                                        +'{"inPageName":"LV4","inUrl":"race.html","inData":""},'
+                                        +'{"inPageName":"LV5","inUrl":"mircroom.html","inData":""},'
+                                        +'{"inPageName":"LV6","inUrl":"job.html","inData":""},'
+                                        +'{"inPageName":"LV7","inUrl":"mirclife.html","inData":""}'
+                                        +']}';
+                                     
+            var wh = window.getComputedStyle(document.getElementById("content"),null);
+            //打开多页面浮动窗口的回调
+            uexWindow.cbOpenMultiPopover = function(opId, dataType, data){
+                //alert("hahahha");
+                if(opId == 0){
+                    var res = JSON.parse(data);
+                    var objId = ['id_rcommend','id_inform','id_activity','id_learn','id_race','id_mircroom','id_job','id_mirclife'];
+                    var getname = document.getElementById("id_rcommend");
+                    var index = res.multiPopSelectedIndex;
+                    var allWidths = 0;                     //所有滚动内容的宽度
+                    var widths = getname.offsetHeight;       //一个的宽度
+                    var scrWidth = $('#otable').scrollLeft();       //scroll距离左边的距离
+                    for(var i = 0;i < objId.length;i++){
+                        $("#"+objId[i]).attr('class','ub ub-ac ub-pc menus_color');//恢复所有栏目样式
+                        allWidths += parseInt(document.getElementById(objId[i]).offsetHeight);
+                    }
+                    $("#"+objId[index]).attr('class','ub ub-ac ub-pc ofont f-s12');//设置当前展示栏目样式
+                    setStorage('idPage',objId[index]);
+                    if(index > scollIndex){
+                        var dWidth = parseInt(scrWidth) + parseInt(widths) * parseInt(index - scollIndex);
+                        $('#otable').scrollLeft(dWidth);
+                    }else{
+                        var dWidth = parseInt(scrWidth) - parseInt(widths) * parseInt(scollIndex - index);
+                        $('#otable').scrollLeft(dWidth);
+                    }
+                    scollIndex = index;
+                }
+            }
+             //打开多页面浮动窗口
+            uexWindow.openMultiPopover(popcontent, 'content', 0, 0, numTTot, document.body.clientWidth, parseInt(wh.height), 0, 512, 0,""); 
+            var d = parseInt(($('#header').offset().width - 6*em) * f);
+            oframe = d;
+                //监测是否退出
+                var presstime=0;
+                uexWindow.setReportKey(0, 1);
+                uexWindow.onKeyPressed = function(keyCode) {
+                if (keyCode == 0) { 
+                    if(presstime==0){
+                       uexWindow.toast("0", "5","再按一次返回键退出！", "3000"); 
+                       presstime=1;
+                    }else{
+                        presstime=1;
+                        uexWidgetOne.exit(0);
+                    }
+                    setTimeout(function() {
+                        presstime=0;
+                    }, 3000); 
+                }
+               }
+            }
+         };
+        var scollIndex = 0;
+        //打开头部栏目的浮动窗口
+        function openFrame(index){
+            var objId = ['id_rcommend','id_inform','id_activity','id_learn','id_race','id_mircroom','id_job','id_mirclife'];
+            setStorage('idPage',objId[index]);
+            uexWindow.setSelectedPopOverInMultiWindow("content", index);
+            for(var i = 0;i < objId.length;i++){//恢复所有栏目样式
+                $("#"+objId[i]).attr('class','ub ub-ac ub-pc menus_color');
+            }
+            //设置点击的栏目样式
+            $("#"+objId[index]).attr('class','ofont ub ub-ac ub-pc');
+            $("#"+objId[index]).addClass('f-s12');
+            setStorage("preCloumns",index);
+        }
+           
+ </script>
+</html>

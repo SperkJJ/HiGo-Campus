@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/img.css">
+        <link rel="stylesheet" href="css/rotate.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh ub ub-ver">
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c bc-head bc-text-head" tabindex="0">吃喝玩乐</h1>          
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub ub-ver ub-f1" style="overflow-y: scroll">
+                 
+            </div>
+            <!--content结束-->
+            <div id="footer " class="uf ub" style="height:3.5em;border-top:2px solid #EEEEEE">
+                <div class="ub ub-f1 ub-ver" style="margin-top:0.2em;width:25%;"> 
+                    <div class="ub-f1 ub ub-ac ub-pc" onclick='openNewWin("index","index.html","0")'>
+                        <div class=" ub-img message ub" style="height:2em;width:2em;"></div>
+                    </div>
+                    <div class=" ulev-1 ub ub-pc umh2 ub-ac">资讯</div>
+                </div> 
+                <div class="ub ub-f1 ub-ver" style="margin-top:0.2em;width:25%;"> 
+                    <div class="ub-f1 ub ub-ac ub-pc" onclick='openNewWin("forum","forum.html","0")'>
+                        <div class=" ub-img forum ub" style="height:2em;width:2em;"></div>
+                    </div>
+                    <div class=" ulev-1 ub ub-pc umh2 ub-ac">论坛</div>
+                </div>
+                <div class="ub ub-f1 ub-ver" style="margin-top:0.2em; width:25%;"> 
+                    <div class="ub-f1 ub ub-ac ub-pc">
+                        <div class=" ub-img food-act ub" style="height:1.8em;width:1.8em;"></div>
+                    </div>
+                    <div class="sc-text-active ulev-1 ub ub-pc umh2 ub-ac">吃喝玩乐</div>
+                </div>
+                <div class="ub ub-f1 ub-ver" style="margin-top:0.2em;width:25%;"> 
+                    <div class="ub-f1 ub ub-ac ub-pc" onclick='openNewWin("service","service.html","0")'>
+                        <div class=" ub-img service ub" style="height:1.8em;width:1.8em;"></div>
+                    </div>
+                    <div class="ulev-1 ub ub-pc umh2 ub-ac">校园服务</div>
+                </div>
+                <div class="ub ub-f1 ub-ver" style="margin-top:0.2em;width:25%;"> 
+                    <div class="ub-f1 ub ub-ac ub-pc" onclick='openNewWin("my","my.html","0")'>
+                        <div class=" ub-img my ub" style="height:1.8em;width:1.8em;"></div>
+                    </div>
+                    <div class=" ulev-1 ub ub-pc umh2 ub-ac">个人中心</div>
+                </div>       
+            </div>
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/sha.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+    <script>
+        window.uexOnload = function(type) {
+            if(!type){
+                var titHeight = $('#header').offset().height;
+                  appcan.frame.open("content", "food_content.html", 0, titHeight);
+                  window.onorientationchange = window.onresize = function() {
+                  appcan.frame.resize("content", 0, titHeight);
+             }      
+            }
+        }
+        
+ </script>
+</html>

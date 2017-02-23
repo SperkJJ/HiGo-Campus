@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        
+        <script type="text/javascript" src="js/jqery.js"></script>
+        <script type="text/javascript" src="js/allunivlist.js"></script>
+        <style type="text/css">
+	       *{padding:0; margin:0;}
+	       a{text-decoration:none; color:#666666; float:left; margin-right:15px;}
+	       body,ul,ol,h2,h3,h4,h5,p,dl,dt,dd,form{padding:0;margin:0;}img{border:none;}li{list-style:none;}a{text-decoration:none;outline:none;color:#666666;}a:hover{text-decoration:none}img{border:0}ul{list-style:none;margin:0;}label{color:#6CBD45;font-size:14px;font-weight:bold;padding-bottom:0.5em;margin:0;}.h3{font-size:13px;font-weight:bold;}#show{background:url(images/photo.jpg)}#meun{color:#fff;padding-left:10px;}#meun img{float:left;}#submeun{margin-left:70px;float:left;}#submeun span{text-align:center;margin-right:10px;float:left;display:inline;}#submeun span a{color:#fff;height:50px;line-height:50px;font-size:14px;font-weight:bold;text-align:center;padding-left:15px;padding-right:15px;display:block;}#submeun span.cur{text-align:center;background:#82ce18;margin-right:10px;float:left;display:inline;}#top{background-color:#000;margin:0em 0 10px 0em;border-style:solid;border-width:1px;border-color:#E5E5E5;height:50px;line-height:50px;}label.subtitle{font-size:13px;float:right;color:#6CBD45;margin:0 10px;text-align:right;}h1.title{height:50px;font-size:12px;background:url(logo.png) no-repeat;}h1.title a:link,h1.title a:visited,h1.title a:hover{color:#000;text-decoration:none;}
+        </style>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script type="text/javascript">
+            var school = "";
+            var sf = "";
+            $(function (){
+            	$.each(allUnivList,function (j,m){		
+            		$("#gj").append("<a href='javascript:void(0);' onclick='getSheng("+00+",\""+m.name+"\")'>"+m.name+"</a>");			
+            	});
+            });
+            function getSheng(aid,name){
+            	$("#sheng").show();
+            	$("#list").html('');
+            	$("#sheng").html('');
+            	if (allUnivList[aid].provs.length == 0){
+            		$("#sheng").append("目前只支持中国");
+            	}
+            	else
+            	{
+            		$.each(allUnivList[aid].provs,function (j,m){				
+            			$("#sheng").append("<a href='javascript:void(0);' onclick='getSchool("+aid+","+j+",\""+m.name+"\")'>"+m.name+"</a>");
+            		});
+            	}
+            }
+            function  getSchool(gid,pid,name){
+            school = name;
+            $("#list").show();
+            	$("#list").html('');
+            	$.each(allUnivList[gid].provs[pid].univs,function (k,l){
+            		$("#list").append("<a href='#' style='width:270px;display:block;float:left;'>"+l.name+"</a>");
+            	});
+            	$("#list").append("<br style='clear:both;' />");
+            		
+            }
+            $("#list a").live("click",function (){
+            	$("#gj").hide();
+            	$("#list").hide();
+            	$("#sheng").hide();
+            	school += " - "+$(this).text();
+            	$("#txtSc").val(school);
+            });
+            $("#txtSc").live("click",function (){
+            	$("#gj").show();
+            	$("#list").hide();
+            	$("#sheng").hide();
+            });
+            function go(){
+                uexWindow.open("index", '0', "index.html", 2, '', '',0,280);
+            } 
+            function check(){
+                var str = document.getElementById('txtSc').value;
+                if(str.substr(5)!="西北工大"){
+                    alert('抱歉，暂不支持该学校！');
+                }else{
+                    go(); 
+                }
+            }  
+               
+ </script>
+</head>
+<body class="um-vp bc-bg" ontouchstart>
+<div class="ub ub-ver ub-pc">
+     <div id="header" class="uh bc-text-head ub bc-head ">
+         <div class="nav-btn" id="nav-left">
+              <div class="ub-img umw2 umh3 "></div>
+         </div>
+         <h1 id="title" class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">选择学校</h1>
+         <div class="nav-btn nav-bt" id="nav-right">
+              <div onclick="go();" class="ub ub-ac ub-pc ulev-1 umh4">进入主页</div>         
+        </div>         
+    </div>
+    <div class="ub ub-f1 ub-ver uinn">
+        <div class="ub uinn ubb" style="border-bottom:2px #EB6996 solid ">目前支持的学校:</div>
+        <div class="ub uinn">
+            <div onclick="go();" class="uba ulev uinn" style="border:1px #848484 solid ">西北工业大学</div>
+        </div>
+        <div class="ub uinn" style="border-bottom:2px #EB6996 solid ">选择您的学校<div class="ub ub-ac ulev-1">(默认为西北工业大学)</div></div>
+        <form class="uinput ub ub-f1 umar-t">
+        <input class="uinn ub" placeholder="" type="text" id="txtSc" style="border:2px #EB6996 solid;width:80%"/>
+        <div class="ub ub-f1 ub-ac bc-head ub-pc uc-a umar-r umar-l bc-text-head" style="height:3em;width:5em;" onclick="check()">
+                                                                      确定
+        </div> 
+        </form>
+        <div class="umar-t uinn ubschool" id="gj" style="width:80%;overflow-y:hidden;border-top:2px #EB6996 solid;line-height:1.5em; display:none;"></div>
+        <div class="uinn ubschool" id="sheng" style="width:80%;overflow-y:hidden; line-height:1.5em;display:none;"></div>
+        <div class="uinn ubschool" id="list" style="width:80%;overflow-y:scroll; line-height:1.5em;display:none; height:10em;"></div>
+    </div>
+</div>
+</div>
+</body>
+</html>

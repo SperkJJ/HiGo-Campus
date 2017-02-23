@@ -1,0 +1,26 @@
+body{color:#444;background: #fff}
+
+a{text-decoration:none; color:#444}
+a:hover{text-decoration:underline; color:#1E50A2}
+
+
+img{style:"width:100%"}
+
+.hr{background: url(../images/uline.gif) repeat-x center center;}
+.hr hr{display:none}
+
+.main{width:100%;margin:0 auto;}
+.col-left{width:100%;}
+/* 内容 */
+#Article{ overflow-y:hidden}
+#Article{ border:0px solid #C3D4E7;zoom:1; padding:0 0.4em}
+#Article h1{color:#000;font:800 1.5em "宋体",arial; margin:0.5em 0 0 0; text-align:left; padding:3px 0 4px; border-bottom:2px solid #e5e5e5}
+#Article h1 span{ font-size:0.5em; font-weight:normal; line-height:1.2em; color:#999;margin-bottom:0.5em; }
+
+#Article .related{ border-top:dashed 1px #ccc; margin-top:15px}
+#Article .related h5{padding-bottom:4px}
+#Article .related{ padding:1px 0 0}
+#Article .related a{ color:#0b3b8c} 
+
+#Article .content{ font-size:1em}
+#Article .content p{font-size:1em;line-height:1.8em;text-align:justify;word-wrap:break-word; padding:0; margin:0.1em 0.2em 0.4em;}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div id="page_0" class="up ub ub-ver" tabindex="0">
+            <div id="header" class="uh bc-text-head ub bc-head ">
+                <div class="nav-btn" id="nav-left" onclick="closeWin()">
+                    <div class="ub-img  icon-back umw2 umh3 "></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">帖子详情</h1>
+                <div class="nav-btn nav-bt" id="nav-right">
+                    <div class="ub-img umw2 umh4"></div>
+                </div>         
+            </div> 
+            <div class="ub ub-f1 ub-ver" style="overflow-y: scroll">
+                <div id="forum_detail"></div>
+                <div class="ub umh4 ulev-1 uinn ub-ac sc-bg-active"  style="border-bottom:4px solid #EEEEEE">最新评论</div>
+                <div  class="ub ub-ver uinn"> 
+                     <div id="nocomment" class="ub ub-f1 ub-ac ub-pc umar-t">暂无评论！</div>
+                     <div id="comment" class="ub ub-ver"></div>
+                </div>           
+            </div>
+            <div id="footer " class="uf ub ub-ac bc-bg" style="height:3.5em;border-top:3px solid #EEEEEE">
+                <div class="ub-f1 umar-l ">
+                     <form class="uinput ub ub-f1">
+                          <input placeholder="请在此处填写您的评论" type="text"  autocomplete="off" id="comment_content" >
+                     </form>
+                </div>
+                <div class="ub ub-ac bc-head ub-pc uc-a umar-r umar-l bc-text-head" style="height:3em;width:5em;" onclick="inputComment()">
+                                                                    提交
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="js/appcan.js"></script>
+    <script src="js/appcan.control.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/forum.js"></script>
+    </body>
+    <script>
+    var newcount=0;
+    var precount=0;
+    var str='';
+    var addreadurl = "http://121.42.161.29/mobile/app/forum/get.php?type=1&forum_id="+getStorage("forumid"); //帖子阅读数增加网址
+    var addcommenturl = "http://121.42.161.29/mobile/app/forum/get.php?type=2&forum_id="+getStorage("forumid");//帖子评论数数增加网址
+    var commneturl = "http://121.42.161.29/mobile/app/comment/forum.php?type=1&forum_id="+getStorage("forumid"); //获取帖子全部评论网址
+    var inputcommenturl = "http://121.42.161.29/mobile/app/comment/forum.php?type=2&forum_id="+getStorage("forumid");//提交帖子评论网址
+    window.uexOnload = function(type) {
+         if (!type) {
+             dispalyforum();
+             dispalycomment();
+             appcan.request.get(addreadurl,function(data){})//增加阅读数 
+         }
+    }  
+    </script>
+</html>

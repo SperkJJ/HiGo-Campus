@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/rotate.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="ub-img  icon-back umw2 umh3 "></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">店铺信息</h1>
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 ub ub-ver" style="overflow-y: scroll">
+                 <div style="margin-top:70%" class="ub ub-ac ub-ver ub-pc" id="loadbg" ontouchstart = "zy_touch()"></div>
+                 <div id="shopinfo" class="ub ub-ver" style="width:100%">     
+                 </div>
+            </div>
+            <!--content结束-->
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/sha.js"></script>
+        <script src="js/forum.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            loading("店铺信息加载中...");
+            getData();
+        });
+        appcan.button(".nav-btn", "btn-act", function() {
+            appcan.window.close(-1);
+        })
+        function getUrl(){
+             var serverUrl = "http://api.dianping.com/";
+             var apiPath = "v1/business/get_single_business";
+             var appkey = "971799358";
+             var secret = "5592f1e435654c5db00018780ee0c319";
+             
+             var param = {};
+  
+             param["platform"] = 2;
+             param["business_id"]=getStorage("business_id");
+             
+             var array = new Array();
+             for(var key in param)
+             {
+                 array.push(key);
+             }
+             array.sort();  
+             var paramArray = new Array();
+             paramArray.push(appkey);
+             for(var index in array)
+             {
+                 var key = array[index];
+                 paramArray.push(key + param[key]);
+             }
+             paramArray.push(secret);
+             var shaSource = paramArray.join("");
+             var sign = new String(CryptoJS.SHA1(shaSource)).toUpperCase();
+
+             var queryArray = new Array();
+             queryArray.push("appkey=" + appkey);
+             queryArray.push("sign=" + sign);
+             for(var key in param)
+             {
+                 queryArray.push(key + "=" + param[key]);
+             }
+             var queryString = queryArray.join("&");
+             var url = serverUrl + apiPath + "?" + queryString;
+             return encodeURI(url);
+        }
+        function getData(){
+            appcan.request.getJSON(getUrl(),function(data){
+                var reasult = data.businesses;
+                 str1='<div class="ub uinn " style="border-bottom:2px solid #EEEEEE;">'+
+                         '<img onclick="picdetail(&quot;'+reasult[0].s_photo_url+'&quot;)" src="'+reasult[0].s_photo_url+'" class="ub ub-img uc-a" style="height:7em;width:9em;"/>'+
+                         '<div class="ub ub-f1 ub-ver uinn">'+
+                             '<div class="ub ub-f1 ulev1 ub-ac sc-text-tab">'+reasult[0].name+'</div>'+
+                             '<div class="ub ub-f1 ub-ac ub-pc">'+
+                                 '<div class="ulev-1 ub-ac sc-text-tab">评分：</div>'+
+                                 '<img class="ub ub-img" src="'+reasult[0].rating_s_img_url+'" style="height:80%;width:40%"/>'+
+                                 '<div class="ub ub-f1 ub-ac ulev-1 sc-text-tab ub-pc">人均：'+reasult[0].avg_price+'￥</div>'+
+                             '</div>'+
+                             '<div class="ub ub-f1 ulev-1 ub-ac sc-text-tab">口味：'+reasult[0].product_score+'&nbsp环境：'+reasult[0].decoration_score+'&nbsp服务：'+reasult[0].service_score+'</div>'+
+                         '</div>'+
+                      '</div>'+
+                      '<div onclick="openMap(&quot;'+reasult[0].latitude+'&quot;,&quot;'+reasult[0].longitude+'&quot;)" class="ub uinn " style="border-bottom:2px solid #EEEEEE;">'+
+                          '<img style="height:1.5em;width:1em" class="ub ub-img umar-a" src="css/image/location.png"/>'+
+                          '<div class="ub ub-ac ub-f1" style="margin-left:1.5em">'+reasult[0].address+' </div>'+
+                          '<img style="height:1.5em;width:1em" class="ub ub-img umar-a" src="css/image/next.png"/>'+
+                      '</div>'+
+                      '<div onclick="uexCall.dial(&quot;'+reasult[0].telephone+'&quot;)"  class="ub uinn " style="border-bottom:2px solid #EEEEEE;">'+
+                          '<img style="height:1.5em;width:1em" class="ub ub-img umar-a" src="css/image/call.png"/>'+
+                          '<div class="ub ub-ac ub-f1" style="margin-left:1.5em">'+reasult[0].telephone+' </div>'+
+                          '<img style="height:1.5em;width:1em" class="ub ub-img umar-a" src="css/image/next.png"/>'+
+                      '</div>'+
+                      '<div class="ub umar-t uinn ub-ver">';
+               if(reasult[0].has_online_reservation==1){
+                   str2='<div style="height:2.5em;" class="ub ub-ac ub-pc sc-bg-alert uc-a bc-text-head">在线预约</div>';
+               }else{
+                   str2='';
+               }
+               if(reasult[0].has_deal==1){
+                   str3='<div class="ub ub-ver umar-t"><div style="height:2.5em;" class="ub ub-ac ub-pc bc-head uc-t1 bc-text-head">店铺全部团购</div>'+
+                         '<div class="ub ub-ver ubb ubr ubl" style="border:1px solid #EB6996">';
+                   for(var i=0;i<reasult[0].deals.length;i++){
+                       str3+='<div class="ub uinn ub-ver " style="border-bottom: 1px solid #EEEEEE">'+
+                                    '<div class="ub uinn">'+reasult[0].deals[i].description+'</div>'+
+                                    '<div onclick="openTuan(&quot;'+reasult[0].deals[i].url+'&quot;)" class="ub  ub-pc ub-f1">'+
+                                        '<div style="height:2em;width:40%" class="ub sc-btn uc-a ulev-1 ub-pc ub-ac bc-text-head">>>查看该团购信息<<</div>'+
+                                    '</div>'+
+                                '</div>';
+                      }
+               }else{
+                   str3='<div class="ub ub-ac ub-pc sc-text-warn">该店铺暂无团购信息！</div>';
+               }
+                str4='</div></div></div>';
+                str5='<div class="ub" id="dzicon" ><div class="ub-f1 t-gra tx-c ulev-1" style="margin:0.5em 0 1em 0">数据支持<img src="css/image/dz2.png">大众点评 </div></div>'; 
+                $$('loadbg').className= 'uhide';
+                $$('shopinfo').innerHTML=str1+str2+str3+str4+str5;
+            })
+        }
+        function openTuan(x){
+            setStorage("deal_id",x);
+            uexWindow.open("dianp", '0', "dianp.html", 2, '', '',0,280);
+        }
+        function openMap(lat,lon){
+            setStorage("shoplat",lat);
+            setStorage("shoplon",lon);
+            uexWindow.open("map", '0', "map.html", 2, '', '',0,280);
+        }
+    </script>
+</html>

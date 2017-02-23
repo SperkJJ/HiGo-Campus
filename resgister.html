@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver sc-bg-active" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="ub bc-head  ub-ac">
+                <div id="back" class="ub  umar-l ub-img icon-back " style="height: 1.5em;width:2.5em"></div>
+                <div class="h1 ub-f1 ulev-3 ub ub-ac ub-pc bc-text-head" tabindex="0">注册</div>
+                <div class="ub wh2 umar-r"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="tx-l ub ub-f1 ub-ver"> 
+                <div class="ub ub-ver uinn-a1">
+                    <div class="uba b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac">
+                        <div class="ulev-app1 umw4 umar-l">
+                      用户名：
+                        </div>
+                        <div class="ub ub-ac umh5 ub-f1 umar-l umar-r">
+                            <div class="uinput ub ub-f1">
+                                <input placeholder="字母、数字，区分大小写" type="text" class="ub-f1" id="uname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uba b-gra3 uc-a1 c-wh ub uinn-a7 umar-at1 ub-ac">
+                        <div class="ulev-app1 umw4 umar-l">
+                      昵称：
+                        </div>
+                        <div class="ub ub-ac umh5 ub-f1 umar-l umar-r">
+                            <div class="uinput ub ub-f1">
+                                <input placeholder="论坛、评论显示的名称" type="text" class="ub-f1" id="nickname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uba b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1">
+                        <div class="ulev-app1 umw4 umar-l">
+                       登录密码：
+                        </div>
+                        <div class="ub ub-ac umh5 ub-f1 umar-l umar-r">
+                            <div class="uinput ub ub-f1">
+                                <input placeholder="最少6个字符" type="password" class="ub-f1" id="password1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uba b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1">
+                        <div class="ulev-app1 umw4 umar-l">
+                       确认密码：
+                        </div>
+                        <div class="ub ub-ac umh5 ub-f1 umar-l umar-r">
+                            <div class="uinput ub ub-f1">
+                                <input placeholder="最少6个字符" type="password" class="ub-f1" id="password2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uba b-gra3 uc-a1 c-wh ub ub-pc uinn umar-at1 uinn-a7">
+                        <div class="ub">
+                            <div class="ulev-app1 umh4 umar-l ub ub-ac">
+                     设置头像 ：
+                        </div>
+                        <img id="setheadpic" src="css/res/addheadpic.png" class="ub ub-img" style="height:2.5em;width:2.5em;margin-left:1.5em"/>
+                        </div>
+                        <div class="ub ub-f1  ub-pc" id="headpic">     
+                        </div>
+                    </div>
+                    <div class="ub ub-ver" style="margin-top: 1em">        
+                        <div class="uinn-at1">
+                            <div class="ub ub-ac bc-head ub-pc bc-text-head uc-a" style="height:2.5em" id="resgister">
+                              注册                                                    
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="ub ub-ac ub-pc umar-t">
+                           <p id="error" class="ulev1" style="font-size:1.2em;color:red;"></p>
+                     </div>
+                </div>  
+            </div>
+            <!--content结束-->
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/forum.js"></script>
+    </body>
+    <script>
+        var imagePath="";
+        var uploadHttp="http://121.42.161.29/mobile/app/up/uploaduserheadpic.php"
+        appcan.ready(function(){
+                    uexImage.onPickerClosed=function(data){
+                        $$("headpic").innerHTML = "";
+                        var picinfo = JSON.parse(data);
+                        imagePath=picinfo.data[0];
+                        $$("headpic").innerHTML ='<img onclick="picdetail(&quot;'+picinfo.data[0]+'&quot;)" src="'+picinfo.data[0]+'"  class="ub ub-img" style="height:2.5em;width:2.5em;"/>'; 
+                    }
+                    uexUploaderMgr.cbCreateUploader =function(opCode,dataType,data){
+                        if(data == 0){
+                            json='{"SESSIONID":'+appcan.locStorage.getVal("SESSIONID")+'}';
+                            uexUploaderMgr.setHeaders(0,json);
+                            uexUploaderMgr.uploadFile(0,imagePath,"file",1,400);
+                        }else{
+                            alert("头像上传失败！");
+                        }
+                    }
+                    uexUploaderMgr.onStatus = function(opCode,fileSize,percent,serverPath,status){
+                     switch (status) {
+                            case 0:break;
+                            case 1:
+                                uexUploaderMgr.closeUploader(opCode);  
+                                submitResgisterInfo();
+                                break;
+                            case 2:
+                                alert("头像上传失败");
+                                uexUploaderMgr.closeUploader(opCode);
+                                break;
+                      }  
+                   } 
+        });
+        appcan.button("#back", "ani-act", function() {
+            appcan.window.close('-1',100);     
+        })
+        appcan.button("#setheadpic", "ani-act", function() {
+            var data = {
+                        min:1,
+                        max:1,
+                        quality:0.8,
+                        detailedInfo:true
+                        }
+            var json = JSON.stringify(data);
+            uexImage.openPicker(json);       
+        })
+       appcan.button("#resgister", "ani-act", function() {
+            if(checkResgisterInfo()==true){
+                checkNameIsExist();         
+            } 
+       })
+       function checkResgisterInfo(){
+            $$("error").innerHTML="";
+            if($$("uname").value==""){
+                $$("error").innerHTML="用户名为空！" 
+                return false;   
+            }
+            if($$("nickname").value==""){
+                $$("error").innerHTML="昵称为空！" 
+                return false;    
+            }
+            if($$("password1").value==""||$$("password2").value==""){
+                $$("error").innerHTML="请填写密码！";
+                return false; 
+            }else{
+                if($$("password1").value!=$$("password2").value){
+                    $$("error").innerHTML="您两次输入的密码不一样！"; 
+                    return false;   
+                }
+            }
+            if(imagePath==""){
+                $$("error").innerHTML="您还未设置头像，请点击蓝色图标设置您的头像！";
+                return false; 
+            }else{
+                return true;
+            }
+      }
+      function submitResgisterInfo(){
+          appcan.ajax({
+               type:'POST',
+               url:'http://sperk.cn/mobile/app/index/index.php?type=1',
+               data:{
+                   username:$$("uname").value,
+                   nickname:$$("nickname").value,
+                   password:$$("password1").value,
+                   SESSIONID:appcan.locStorage.getVal("SESSIONID")
+               },
+               timeout:30000,
+               success:function(data, status, requestCode, response, xhr){
+                   appcan.window.closeToast();
+                   var da = eval('(' + data + ')') 
+                   if(da.status=="success"){   
+                       setStorage("imagePath",imagePath);      
+                       appcan.window.openToast("注册成功，返回登录页面！", 1000, '5', '0');
+                       setTimeout(function(){
+                            closeWin();     
+                       },1001);
+                       }else if(da.status=="fail"){
+                            $$("error").innerHTML="注册失败！！";
+                       }else{
+                            $$("error").innerHTML="注册失败！！";
+                       }   
+               },
+               error:function(xhr,erroType,error,msg) {
+                    if(error==null){
+                        alert("连接服务器失败！");
+                    }    
+               }
+           })
+       } 
+       function checkNameIsExist(){
+           appcan.request.get(
+               "http://121.42.161.29/mobile/app/index/index.php?type=0",
+               {
+                  username:$$("uname").value,
+                  nickname:$$("nickname").value 
+               },
+               function(data){
+                   var da=eval('('+data+')');
+                   if(da.status==1){
+                       alert($$("uname").value+" 该用户名已存在！");
+                       $$("uname").value="";  
+                   }else if(da.status==2){
+                       alert($$("nickname").value+" 该昵称已存在！");   
+                       $$("nickname").value="";
+                   }else if(da.status==3){
+                       upheadpic();
+                   }
+               }
+           )
+       }  
+       function upheadpic(){
+           toast("注册信息提交中，请稍后...");
+           uexUploaderMgr.createUploader(0,uploadHttp);
+       }
+ </script>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <style>
+            .content p{
+                font-size:1em;
+                text-indent: 2em;
+            }
+        </style>
+
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="ub-img  icon-back umw2 umh3 "></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">关于我们</h1>
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 ub ub-ver content">
+                <div class="ub ub-ac ub-pc umar-t">
+                    <img src="css/res/tubiao.png" style="height:3em;width:3em"/>    
+                </div>
+                <p class="ub uinn">
+                    嗨Go校园是一款针对全国各大高校的学生群体而设计的一款校园移动应用,目前设计原型为西北工业大学，往后会逐步推广至全国各大高校。
+                </p>
+                <p class="ub uinn">
+                    嗨Go校园应用主要包含校园资讯、校园论坛、校园吃喝玩乐、校园服务以及个人中心五大模块。
+                </p>
+                <p class="ub uinn">  
+                    <img src="css/res/message-act.png" style="height:1em;width:1em"/>校园资讯功能为学生提供最新的学校资讯信息，主要包括学校通知、活动、学习信息、讲座等资讯，学生在查看学校资讯的同时可以对自己感兴趣的资讯进行点赞、评论以及进行分享，同时也可以查看别人的评论内容。              
+                </p>
+                <p class="ub uinn">
+                   <img src="css/res/forum-act.png" style="height:1em;width:1em"/>校园BBS论坛功能则为学生提供一个发帖回帖信息交流平台，主要有学术交流、校园淘宝、兼职招聘、摄影、社团等模块。学生用户可以在自己喜欢的模块内查看别人的帖子以及相关评论，并且 可以对别人的帖子发表自己的评论，同时学生还可以在自己喜欢的模块内发表带有图片和文字信息的帖子，比如发布二手交易信息、兼职招聘信息。
+                </p>
+                <p class="ub uinn">
+                  <img src="css/res/food-act.png" style="height:1em;width:1em"/>吃喝玩乐功能（校园周边服务）为学生提供校园周边5KM范围内的所有餐饮，娱乐以及团购信息，主要包括：美食、KTV、酒店、理发、电影、火锅、休闲娱乐以及外卖，用户可以在每个分类下查看店铺的详细信息，同时对具备团购功能的店铺进行在线团购。             
+                </p>
+                 <p class="ub uinn">
+                <img src="css/res/service-act.png" style="height:1em;width:1em"/> 校园服务功能为学生提供校园服务，主要包括查询图书信息，校车时刻、校历、查询考试成绩、一卡通信息、流量、跑操等，学生可以根据自己的需求查询相关的服务。          
+                </p>
+                <p class="ub uinn">
+                <img src="css/res/my-act.png" style="height:1em;width:1em"/> 个人中心功能下，可以实现登陆、注册、查看自己的发帖信息等。              
+                </p>
+                <div class="ub uinn ulev-1 ub-ac ub-pc sc-text-active">
+                                                     校园推广合作：SperkJJ@163.com
+                </div>
+            </div>
+            <!--content结束-->
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            
+        });
+        appcan.button(".nav-btn", "btn-act", function() {
+            appcan.window.close(-1);
+        })
+
+    </script>
+</html>

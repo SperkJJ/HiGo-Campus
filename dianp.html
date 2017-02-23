@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html class="ui-mobile landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css1/ui-base.css">
+        <link rel="stylesheet" href="css1/ui-box.css">
+        <link rel="stylesheet" href="css1/ui-color.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css1/ui-res.css">
+        <script src="js/zy_control.js"></script>
+        <script src="js/zy_click.js"></script>
+        <script src="js/appcan.js">
+        </script>
+        <script>
+        </script>
+    </head>
+    <body class="um-vp" ontouchstart>
+        <div id="page_0" class="up ub ub-ver" tabindex="0">
+            <div id="headerh" class="uh bc-text-head ub bc-head ub-ac" style="height:3.5em">
+                <div onclick="copclose();" class="nav-btn" id="nav-left">
+                    <div class="ub-img  icon-back umw2 umh3 "></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">团购详细内容</h1>
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <div id="header" class="uh c-org c-m1 t-wh ub">
+            </div>
+            <div id="content" class="ub-f1 tx-l t-bla ub-img6 res10 c-wh">
+            </div>
+            <div id="footer" class="uf c-org t-wh ub">
+            </div>
+        </div>
+    </body>
+    <script>
+        var fs = 0;
+        var shh = 0;
+		var sc = 0;
+		var sh = 0;
+		var sf = 0;
+		var fsh = 0;
+        window.uexOnload = function(type){      
+            if (!type) {
+                var url = appcan.locStorage.getVal("deal_id");
+                zy_condzurlc("content", url, 0, 0);
+                zy_condzurlh("header", "dianph_content.html", 0, 0);
+                zy_condzurlf("footer", "dianpf_content.html", 0, 0);
+            } 
+			setTimeout(function(){
+                uexWindow.sendPopoverToBack("content");
+            }, 3000);			
+        }
+        
+        function coback(){
+            uexWindow.close('-1');
+        }
+        
+
+        function zy_condzurlc(id, url, x, y){        
+            sc = window.getComputedStyle($$(id), null);
+            shh = $$("headerh").offsetHeight;
+            fs = int(sc.height) + shh;
+            //alert(fs);
+            uexWindow.openPopover(id, "0", url, "", int(x), int(y), int(sc.width), int(fs), int(sc.fontSize), "0");
+        }
+        
+        function zy_condzurlh(id, url, x, y){
+            sh = window.getComputedStyle($$(id), null);
+            uexWindow.openPopover(id, "0", url, "", int(x), int(y), int(sh.width), int(shh), int(sh.fontSize), "0");
+            
+        }
+        
+        function zy_condzurlf(id, url, x, y){
+            sf = window.getComputedStyle($$(id), null);
+            fsh = fs - shh;
+            uexWindow.openPopover(id, "0", url, "", int(x), int(fsh), int(sf.width), int(shh), int(sf.fontSize), "0");
+        }
+    </script>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html class="ui-mobile landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css1/ui-base.css">
+        <link rel="stylesheet" href="css1/ui-box.css">
+        <link rel="stylesheet" href="css1/ui-color.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css1/ui-res.css">
+        <script src="js/zy_control.js">
+        </script>
+        <script>
+        </script>
+    </head>
+    <body class="um-vp sc-bg-active " ontouchstart>
+        <div id="footer" class="uh  t-wh ub" style="3em">
+            <li id='fttext' class="ut ub-f1 sc-text-active t-wh ulev1 ut-s tx-c umar-t">
+                ©嗨Go校园&nbsp;(<span id='sc2' class="sc-text-active">正在打开详细内容.<img src="css/image/sc2.gif"></span>)
+            </li>
+        </div>
+    </body>
+    <script>
+        zy_init();
+        
+        window.uexOnload = function(type){
+            if (!type) {
+                uexWindow.setBounce("0");
+                setTimeout(function(){
+                    $$("sc2").innerHTML = '该内容来自<img src="css/image/dz2.png">大众点评';
+                }, 3000);
+            }            
+        }
+    </script>
+</html>

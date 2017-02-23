@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/newsdetail.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/rotate.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 id="title" class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">推荐</h1>
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l ub ub-ac ub-pc" style="overflow-y: scroll;">
+                <div class="ub ub-ac ub-ver ub-fv ub-pc" id="loadbg" ontouchstart = "zy_touch()"></div>
+                <div id="article_content" class="bc-bg ub ub-ac ub-pc"></div>
+            </div>
+            <!--content结束-->
+            <div id="footer" class="uf ub" style="height:3.5em;border-top:3px solid #EEEEEE">
+                <div class="ub ub-f1 ub-ver ub-pc">
+                    <div id="zanicon" class="icon-map-act ub-img ub" style="height:2em;" onclick="addzan()">
+                    </div>
+                    <div class="ub ub-ac ub-pc">
+                        <p class="ulev-2">赞:<p class="ulev-2" id="zan"></p></p>
+                    </div>
+                </div>
+                <div class="ub ub-f1 ub-ver ub-pc" onclick="openWin('comment','comment.html','10','300');">
+                    <div class="icon-more-act ub-img ub" style="height:2em;">
+                    </div>
+                    <div class="ub ub-ac ub-pc">
+                        <p class="ulev-2">评论:<p class="ulev-2" id="comment"></p></p>
+                    </div>
+                </div>
+                <div class="ub ub-f1 ub-ver ub-pc" onclick="share()">
+                    <div class="icon-forward-act ub-img ub" style="height:2em;">
+                    </div>
+                    <div class="ub ub-ac ub-pc" onclick="">
+                        <p class="ulev-2">分享</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/main.js"></script>
+        
+    </body>
+    <script>
+        var url = "http://121.42.161.29/mobile/app/news/get.php?type=1&article_id="+getStorage("article_id");
+        var addzanurl = "http://121.42.161.29/mobile/app/news/get.php?type=2&article_id="+getStorage("article_id");
+        var addreadurl = "http://121.42.161.29/mobile/app/news/get.php?type=3&article_id="+getStorage("article_id");
+        var addcommenturl = "http://121.42.161.29/mobile/app/news/get.php?type=4&article_id="+getStorage("article_id");
+        var iszan = false; 
+        window.uexOnload = function(type) {
+            if (!type) {
+                loading("内容加载中...");
+                addread();
+                appcan.request.get(url,function(data){
+                    var da = eval('('+data+')');
+                    if(da.status=="success"){ 
+                        var data = da.data;
+                        $$('article_content').innerHTML=data[0].article_content;
+                        setStorage("zancount",data[0].article_like); 
+                        setStorage("commentcount",data[0].article_comment); 
+                        setStorage("article_address",data[0].article_address);
+                        setStorage("article_title",data[0].article_title);
+                        $$('loadbg').className= 'uhide';  
+                        displayfooter();   
+                    }else{
+                        $$('loadbg').className= 'uhide';
+                        alert("获取文章失败！")
+                    }    
+               }) 
+             }
+        }            
+        appcan.button(".nav-btn", "btn-act", function() {
+            appcan.window.close(-1);
+        })
+        function addzan(){
+            if(!iszan){ 
+                iszan = true;
+                appcan.request.get(addzanurl,function(data){
+                    var da = eval('('+data+')');
+                    if(da.status=="success"){
+                         appcan.window.openToast("点赞成功！","500","5","0");
+                         $("#zanicon").removeClass("icon-map-act");
+                         $("#zanicon").addClass("icon-map");
+                         $$("zan").innerHTML = parseInt(getStorage("zancount"))+1;
+                           
+                    }else{
+                         appcan.window.openToast("点赞失败！","500","5","0");
+                    }      
+                })
+            }else{
+                appcan.window.openToast("您已赞过了！","500","5","0");  
+            }
+            
+       }
+       function addread(){
+           appcan.request.get(addreadurl,function(data){});     
+       }
+       function addarticlecomment(){
+           appcan.request.get(addcommenturl,function(data){})
+       }
+       function displayfooter(){
+           var index = getStorage("preCloumns");
+           $$('zan').innerHTML = getStorage("zancount");
+           $$('comment').innerHTML = getStorage("commentcount");
+           switch(index){
+                case "0" : $$("title").innerHTML = "推荐";
+                         break;
+                case "1" : $$("title").innerHTML = "学校通知";
+                         break;
+                case "2" : $$("title").innerHTML = "活动";
+                         break;                  
+                case "3" : $$("title").innerHTML = "学习天地";
+                         break;
+                case "4" : $$("title").innerHTML = "竞赛";
+                         break; 
+                case "5" : $$("title").innerHTML = "微课堂";
+                         break;
+                case "6" : $$("title").innerHTML = "就业";
+                         break;
+                case "7" : $$("title").innerHTML = "微生活";
+                         break; 
+           }
+       }
+       function addcomment(){
+           $$('comment').innerHTML = parseInt(getStorage("commentcount"))+1;
+       }
+
+       function share() {
+          var params  = {
+                         text:getStorage("article_title")+":"+getStorage("article_address")
+                        };
+          var paramStr = JSON.stringify(params);
+          uexWindow.share(paramStr);
+       }
+    </script>
+</html>

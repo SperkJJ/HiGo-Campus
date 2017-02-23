@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body class="um-vp " ontouchstart >
+        <div id="page_0" class="up ub sc-bg-active ub-ver" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head h1">
+                <div class="nav-btn" id="nav-left" onclick="closeWin()">
+                    <div class="ub-img  icon-back umw2 umh3 "></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">登录</h1>
+                <div class="nav-btn" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 ub ub-ver uinn-a3 ub-fv">
+                 <div class="ub ub-ver uinn uinn-at1 umar-t  uinn">
+                     <div class="ub  sc-bg  uc-a ub-ver">
+                         <div class="ub uinn">
+                             <div class="ub ub-ac ub-pc" style="width:6em;">用户名:</div>
+                             <div class="ub ub-f1 uinput uinn4 uc-a1">
+                             <input placeholder="输入账号" type="text" class="umh4 text-indpot8" id="username" value="">
+                             </div>     
+                         </div>  
+                         <div class="ub uinn">
+                             <div class="ub ub-ac ub-pc" style="width:6em;">密   码:</div>
+                             <div class="ub ub-f1 uinput uinn4 uc-a1">
+                             <input placeholder="输入密码" type="password" class="umh4 text-indpot8" id="password" value="">
+                             </div>     
+                         </div> 
+                         <div class="ub uinn">
+                             <div class="ub ub-ac ub-pc" style="width:6em;">验证码:</div>
+                             <div class="ub  uinput uinn4 uc-a1" style="width:10em;">
+                             <input placeholder="输入验证码" type="text" class="umh4 text-indpot8" id="checkcode" value="">
+                             </div> 
+                             <div id="code" class="ub ub-f1 ub-ac ub-pc" >
+                               
+                             </div>    
+                         </div> 
+                           
+                     </div>
+                    
+                      <div class="ub ub-ver uinn uinn-at1" style="margin-top:2em">
+                           <div class=" umh5 ub ub-ac bc-text-head ub-pc bc-btn uc-a1 umar-b" id="submit">
+                                    登录
+                           </div>
+                           <div class=" umh5 ub ub-ac bc-text-head ub-pc uc-a1 bc-bg4 umar-t" id="resgiter">
+                        没有账号？去注册
+                           </div>
+                      </div>
+                      <div class="ub ub-ac ub-pc umar-t">
+                           <h5 id="error" style="font-size:1.2em;color:red;"></h5>
+                      </div>
+                </div>
+            </div>
+            <!--content结束-->
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            var SESSIONID = appcan.locStorage.getVal("SESSIONID");
+            $$("code").innerHTML='<img title="点击刷新"'+ 
+                                                       'src="http://121.42.161.29/test/captcha.php?sessionid='+SESSIONID+
+                                                       '" align="center"></img>';        
+        });
+        appcan.button("#submit","ani-act",function(){
+            if(cheeckIsNull()){
+                appcan.window.openToast("登录中,请稍后……", 5000, '5', '1');
+                setTimeout(function(){checkAdmin();},500);
+            }
+        })
+        appcan.button("#resgiter","ani-act",function(){
+            appcan.window.open({
+                name : "resgister",
+                data : "resgister.html",
+                aniId:2,
+                animDuration:280
+            }); 
+        })
+        function checkAdmin(){
+            var uname = $$("username").value;
+            var pword = $$("password").value;
+            var ccode = $$("checkcode").value;
+            appcan.request.get(
+               "http://sperk.cn/mobile/app/index/index.php?type=2",
+               {
+                   SESSIONID:appcan.locStorage.getVal("SESSIONID"),
+                   username:uname,
+                   password:pword,
+                   validate:ccode
+               }, 
+               function(data){
+                   appcan.window.closeToast(); 
+                   var da = eval('(' + data + ')');  
+                   if(da.status==3){
+                        setStorage("user_headerimg",da.data[0].user_headpicaddress);
+                        setStorage("nick_name",da.data[0].nick_name); 
+                        setStorage("isLogin",true); 
+                        appcan.window.openToast("登录成功...", 1000, '5', '0');
+                        uexWindow.evaluateScript("my",0,"display()");
+                        closeWin();
+                   }else if(da.status==2){
+                       $$("error").innerHTML="用户名或密码错误，请重新输入！";
+                   }else if(da.status==1){
+                       $$("error").innerHTML="验证码输入错误，请重新输入！";
+                       $$("checkcode").value=""
+                   }else{
+                       $$("error").innerHTML="服务器错误！！";
+                   }  
+               }
+           );
+        }
+        function cheeckIsNull(){
+           var username = $$("username").value;
+           if(username==""){
+              $$("error").innerHTML="用户名为空，请输入您的用户名！";
+              return false;
+           }
+           var password = $$("password").value;
+           if(password==""){
+              $$("error").innerHTML="密码为空，请输入您的密码！";
+              return false
+           }
+           var validate= $$("checkcode").value;
+           if(validate==""){
+              $$("error").innerHTML="验证码为空，请输入您的验证码！";
+              return false;
+           }
+           return true;
+        }
+    </script>
+</html>

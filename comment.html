@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/rotate.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">评论列表</h1>
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 ub ub-ver" style="overflow-y: scroll;"> 
+                <div id="nocomment" class="ub ub-f1 ub-ac ub-pc umar-t sc-text"></div>
+                <div id="comment" class="ub ub-ver uinn"></div>
+            </div>
+            <!--content结束-->
+            <div id="footer " class="uf ub ub-ac" style="height:3.5em;border-top:3px solid #EEEEEE">
+                        <div class="ub-f1 umar-l">
+                              <form class="uinput ub ub-f1">
+                                  <input placeholder="请在此处填写您的评论" type="text"  autocomplete="off" id="comment_content">
+                              </form>
+                        </div>
+                         <div class="ub ub-ac bc-head ub-pc uc-a umar-r umar-l bc-text-head" style="height:3em;width:5em;" onclick="inputComment()">
+                                                                      提交
+                        </div>
+           
+            </div>
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+    <script>
+        var newcount=0;
+        var precount=0;
+        var str='';
+        var putUrl = "http://121.42.161.29/mobile/app/comment/news.php?type=2&article_id="+getStorage("article_id")+"&article_comment=";   
+        var url = "http://121.42.161.29/mobile/app/comment/news.php?type=1&article_id="+getStorage("article_id");   
+        var comment_time = new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+new Date().getDate()+"  "+new Date().getHours()+":"+new Date().getMinutes()+":"+new Date().getSeconds();  
+        window.uexOnload = function(type) {
+            if (!type) {
+                if(getStorage("article_comment")==0){
+                $$('nocomment').innerHTML = "暂无评论";    
+                }else{
+                    getComment();
+                }  
+            }
+        }
+        function getComment(){
+            appcan.request.get(url,function(data){
+                var da = eval('('+data+')');
+                if(da.status=="success"){
+                    var data = da.data;
+                    newcount=data.length;//获取全部评论数
+                    $$('nocomment').className= 'uhide'; 
+                    for(var i=precount;i<newcount;i++){
+                        str+='<div class="uinn ub ub-ver" style="border-bottom:2px solid #EEEEEE">'+
+                            '<div class="ub">'+
+                                '<img class="ub-img uc-a2 wh2 " src="'+data[i].user_headerimg+'"/>'+
+                                '<div class="ub ub-f1 ub-ac">'+
+                                '<p class="ub ub-pc ulev-1 sc-text" style="width:50%">用户：'+data[i].comment_user+'</p>'+
+                                '<p class="ub ub-f1 ulev-2 sc-text ">评论时间：'+data[i].comment_time+'</p>'+
+                                '</div>'+
+                            '</div>'+
+                            '<div class="ub ub-ac umar-l">'+
+                                '<div class="ub ulev ub-ac ub-f1 umh4 uinn">'+data[i].comment_content+'</div>'+
+                            '</div>'+   
+                        '</div>';     
+                    }
+                    $$('comment').innerHTML=str 
+                    precount=data.length;//已经显示的存储起来
+               }else{
+                    $$('nocomment').innerHTML = '暂无评论';
+               }  
+            })
+        }
+        appcan.button(".nav-btn", "btn-act", function() {
+            appcan.window.close(-1);
+        })
+        function inputComment(){
+            if(getStorage("isLogin")){
+                var comment_content = $$('comment_content').value;
+                if(comment_content==""){
+                    alert("评论内容为空！");
+                    return;
+                }
+                toast("评论提交中，请稍后...")
+                setTimeout(function(){
+                    var putCommentUrl = putUrl+encodeURIComponent(comment_content);
+                    appcan.request.get(
+                        putCommentUrl,
+                        {
+                            comment_user:getStorage("nick_name"),
+                            user_headerimg:getStorage("user_headerimg"),
+                            comment_time:comment_time        
+                        },
+                        function(data){
+                            var da = eval('('+data+')');
+                            if(da.status=="success"){
+                                $$('comment_content').value="";
+                                $$('nocomment').innerHTML="";
+                                appcan.window.openToast("评论提交成功","1000","5","0"); 
+                                getComment();
+                                uexWindow.evaluateScript("news_detail",0,"addcomment()");//底部评论数加1 
+                                uexWindow.evaluateScript("news_detail",0,"addarticlecomment()");//数据库中评论数加1  
+                            }else{
+                                closeToast(); 
+                                appcan.window.openToast("评论提交失败，请重试","1000","5","0"); 
+                            }
+                       }
+                    );
+                },1500);
+            }else{
+                alert("请您先登陆再评论");
+                setTimeout(uexWindow.open("login", '0', "login.html", 2, '', '',0,280),1000);            
+            }
+        }
+
+    </script>
+</html>

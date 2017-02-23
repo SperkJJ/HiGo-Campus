@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-box.css">        
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/main.css"/>
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="ub up ub-img bgimg" style="width:100%;height:100%;"></div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+    <script>
+        window.uexOnload = function(type) {
+            if(!type){
+                $("#page_0").css({
+                    "background-image": "url('css/image/background.png')",
+                    "background-repeat":"repeat",
+                    "background-position":"100% 100%"
+                });
+                getLocation();
+                if(getStorage("isFirst")=="false"){
+                      uexWindow.open("forum","0","forum.html","0","0","0","32");
+                      uexWindow.open("index","0","index.html","0","0","0","32");
+                      uexWindow.open("service","0","service.html","0","0","0","32");
+                      uexWindow.open("my","0","my.html","0","0","0","32");
+                      setTimeout(function(){
+                          uexWindow.open("index", '0', "index.html", 2, '', '',0,280); 
+                      },1000) 
+                }else if(getStorage("isFirst")==null){
+                      uexWindow.open("forum","0","forum.html","0","0","0","32");
+                      uexWindow.open("service","0","service.html","0","0","0","32");
+                      uexWindow.open("my","0","my.html","0","0","0","32");
+                      setTimeout(function(){
+                          uexWindow.open("page_0", '0', "guide_pager.html", 2, '', '','0',280);  
+                      },1000)
+                       
+                }      
+            }
+        }    
+    </script>
+</html>

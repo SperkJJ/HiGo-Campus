@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+         <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+    </head>         
+ <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <div id='content' class='ub-f1 tx-l  t-bla ub-img6 res10 uof ' >
+                <div id="slider" class="ub-con ub">
+                    <div class="ub-fh ub-fv bgsize " style="background-image: url('css/image/1.png');background-size: 100% 100%" id="img1"></div>
+                    <div class="ub-fh ub-fv bgsize " style="background-image: url('css/image/2.png');background-size: 100% 100%" id="img2"></div>
+                    <div class="ub-fh ub-fv bgsize " style="background-image: url('css/image/3.png');background-size: 100% 100%" id="img6">
+                        <div class="ub ub-fh ub-fv ub-ver" >
+                            <div class="ub ub-f1"></div>
+                            <div class="btn ub ub-ac ub-pc" onclick="go();" style="width:41%;height: 50%;margin-left: 25%;margin-bottom: 2%;">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/zy_slide.js"></script>
+         <script src="js/main.js"></script>
+
+    </body>
+    <script>
+        appcan.ready(function() {
+            $('#slider').slide = new zySlide('slider', 'H', function() {
+            }, false, function(e) {
+            });           
+         });
+         function go(){
+             setStorage("isFirst","false");
+             getSessionId();   
+         }
+         function getSessionId(){
+            appcan.request.get("http://121.42.161.29/mobile/app/initial.php",function(data){ 
+                var da = eval('('+data+')');
+                if(da.status="success"){
+                    appcan.locStorage.setVal("SESSIONID",da.sessionid); 
+                    uexWindow.open("test", '0', "test.html", 2, '', '',0,280);  
+                }else{
+                    alert("服务器错误！");
+                }
+            })
+        }
+    </script>
+</html>

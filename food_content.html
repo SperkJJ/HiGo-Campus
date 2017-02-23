@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/img.css">
+        <link rel="stylesheet" href="css/rotate.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div class="ub ub-ver">
+            <div class="ub ub-ver">
+                    <div class="ub ub-ver" style="border-bottom:3px solid #EEEEEE">
+                        <div class="ub-f1 ub uinn">
+                            <div id="btn1" class="btn ub ub-f1 ub-ac ub-pc ub-ver">
+                                <div class="ub wh1 ub-img meishi"></div>
+                                <div class="ub ub-f1 ub-ac ub-pc umar-t ulev-1">美食</div>
+                            </div>
+                            <div id="btn2" class="btn ub ub-f1 ub-ac ub-pc ub-ver">
+                                <div class="ub wh1 ub-img ktv"></div>
+                                <div class="ub ub-f1 ub-ac ub-pc umar-t ulev-1">KTV</div>
+                            </div>
+                            <div id="btn3" class="btn ub ub-f1 ub-ac ub-pc ub-ver">
+                                <div class="ub wh1 ub-img hotel"></div>
+                                <div class="ub ub-f1 ub-ac ub-pc umar-t ulev-1">酒店</div>
+                            </div>
+                            <div id="btn4" class="btn ub ub-f1 ub-ac ub-pc ub-ver">
+                                <div class="ub wh1 ub-img lifa"></div>
+                                <div class="ub ub-f1 ub-ac ub-pc umar-t ulev-1">理发</div>
+                            </div>
+                        </div>
+                        <div class="ub-f1 ub uinn">
+                            <div id="btn5" class="btn ub ub-f1 ub-ac ub-pc ub-ver">
+                                <div class="ub wh1 ub-img movie"></div>
+                                <div class="ub ub-f1 ub-ac ub-pc umar-t ulev-1">电影</div>
+                            </div>
+                            <div id="btn6" class="btn ub ub-f1 ub-ac ub-pc ub-ver">
+                                <div class="ub wh1 ub-img huoguo"></div>
+                                <div class="ub ub-f1 ub-ac ub-pc umar-t ulev-1">火锅</div>
+                            </div>
+                            <div id="btn7" class="btn ub ub-f1 ub-ac ub-pc ub-ver">
+                                <div class="ub wh1 ub-img xiuxuanyule"></div>
+                                <div class="ub ub-f1 ub-ac ub-pc umar-t ulev-1">休闲娱乐</div>
+                            </div>
+                            <div id="btn8" class="btn ub ub-f1 ub-ac ub-pc ub-ver">
+                                <div class="ub wh1 ub-img waimai"></div>
+                                <div class="ub ub-f1 ub-ac ub-pc umar-t ulev-1">外卖</div>
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+                <div class="ub ub-ac" style="height:2.2em;background-color:#EEEEEE ">
+                   <p style="margin-left:1em;color:#EB6996"> 附近全部团购</p>
+                </div>
+                 <div class="ub ub-ac ub-ver ub-fv ub-pc" id="loadbg" ontouchstart = "zy_touch()"></div>
+                 <div class="ub ub-f1 uinn ub-ver ">
+                     <div id="deals" class="ub ub-ver ">
+                     </div>
+                 </div>
+        </div>
+    </body>
+    <script src="js/appcan.js"></script>
+    <script src="js/appcan.control.js"></script>
+    <script src="js/sha.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/food.js"></script>
+    </body>
+    <script>
+        var lat=getStorage("latitude");
+        var log=getStorage("longtitude");
+        var page=1;
+        var count;
+        var str='';
+        var str1='';
+        var str2='';
+        appcan.ready(function() {
+             loading("团购列表加载中...");
+             getData();
+        });
+        function getData(){
+            appcan.request.getJSON(getUrl(),function(data){  
+                var da = data;      
+                if(da.status=="OK"){
+                    page++;
+                    count = da.total_count;
+                    if(count==((page-2)*10+da.count)){
+                        str1='<div id="" class="ub " id="dzmore" style="width:80%;margin-left:10%"><div  class="ub  umar-t ub-f1 ub-ac ub-pc uba bc-bg t-gra" style="height:2em;">全部商户显示完毕.(最大5KM范围)</div></div>';    
+                    }else{
+                        str1='<div id="" class="ub " id="dzmore" style="width:80%;margin-left:10%"><div  onclick="getData()" class="ub  umar-t ub-f1 ub-ac ub-pc uba bc-bg t-gra" style="height:2em;">点击显示更多商户.(最大5KM范围)</div></div>';
+                    }
+                    var reasult = da.businesses;
+                    for(var i=0;i<da.count;i++){
+                        var distance;
+                        if(reasult[i].distance>1000){
+                            distance = parseInt((reasult[i].distance)/1000) + "." + parseInt(reasult[i].distance%1000/100)+" km";
+                        }else{
+                            distance = reasult[i].distance+" m"; 
+                        }
+                        str+='<div onclick="openshopdetail('+reasult[i].business_id+')" class="ub" style="border-bottom:1px solid #EEEEEE">'+
+                                 '<div class="ub uinn">'+
+                                      '<img src="'+reasult[i].s_photo_url+'" class="ub ub-img uc-a" style="width: 8em;height:6em;"/>'+
+                                 '</div>'+
+                                 '<div class="ub ub-f1 ub-ver uinn ">'+
+                                      '<div class="ub ub-f1 ulev1 ub-ac sc-text-tab">'+reasult[i].name+'</div>'+
+                                      '<div class="ub ub-f1 ulev-1 ub-ac sc-text">类型：'+reasult[i].categories+'</div>'+
+                                      '<div class="ub ub-f1 ">'+
+                                          '<div class="ub ulev-2 ub-f1 ub-ac sc-text">'+reasult[i].address+'</div>'+
+                                          '<div class="ub ulev-2 ub-f1 ub-ac ub-pe sc-text ">'+distance+'</div>'+
+                                      '</div>'+
+                                 '</div>'+
+                             '</div>';   
+                    }
+                    str2='<div class="ub" id="dzicon" ><div class="ub-f1 t-gra tx-c ulev-1" style="margin:0.5em 0 0.1em 0">数据支持<img src="css/image/dz2.png">大众点评 </div></div>'
+                    $$('loadbg').className= 'uhide';
+                    $$("deals").innerHTML=str+str1+str2;
+                }
+            })
+        }
+        function getUrl(){
+             var serverUrl = "http://api.dianping.com/";
+             var apiPath = "v1/business/find_businesses";
+             var appkey = "971799358";
+             var secret = "5592f1e435654c5db00018780ee0c319";
+             
+             var param = {};
+             param["page"] = page;
+             param["format"]="json";
+             param["latitude"]=lat;
+             param["longitude"]=log;
+             param["platform"] = 2;
+             param["limit"]="10";
+             param["radius"]="5000";
+             param["has_deal"]="1";
+             param["sort"]="7";
+             
+             var array = new Array();
+             for(var key in param)
+             {
+                 array.push(key);
+             }
+             array.sort();  
+             var paramArray = new Array();
+             paramArray.push(appkey);
+             for(var index in array)
+             {
+                 var key = array[index];
+                 paramArray.push(key + param[key]);
+             }
+             paramArray.push(secret);
+             var shaSource = paramArray.join("");
+             var sign = new String(CryptoJS.SHA1(shaSource)).toUpperCase();
+            
+             var queryArray = new Array();
+             queryArray.push("appkey=" + appkey);
+             queryArray.push("sign=" + sign);
+             for(var key in param)
+             {
+                 queryArray.push(key + "=" + param[key]);
+             }
+             var queryString = queryArray.join("&");
+             var url = serverUrl + apiPath + "?" + queryString;
+             return encodeURI(url);
+        }
+        appcan.button(".btn", "ani-act", function() {
+            switch(this.id){
+                case "btn1":setStorage("category","美食");
+                uexWindow.open("food_list", '0', "food_list.html", 2, '', '',0,280);
+                            break;
+                case "btn2":setStorage("category","KTV");
+                uexWindow.open("food_list", '0', "food_list.html", 2, '', '',0,280);
+                            break;
+                case "btn3":setStorage("category","酒店");
+                uexWindow.open("food_list", '0', "food_list.html", 2, '', '',0,280);
+                            break;                         
+                case "btn4":setStorage("category","丽人");
+                uexWindow.open("food_list", '0', "food_list.html", 2, '', '',0,280);
+                            break;
+                case "btn5":setStorage("category","电影");
+                uexWindow.open("food_list", '0', "food_list.html", 2, '', '',0,280);
+                            break;
+                case "btn6":setStorage("category","火锅");
+                uexWindow.open("food_list", '0', "food_list.html", 2, '', '',0,280);
+                            break;                   
+                case "btn7":setStorage("category","休闲娱乐");
+                uexWindow.open("food_list", '0', "food_list.html", 2, '', '',0,280);
+                            break;           
+                case "btn8":alert("该模块正在开发中，敬请期待！");
+                            break;       
+            }
+            
+        })
+
+    </script>
+</html>
